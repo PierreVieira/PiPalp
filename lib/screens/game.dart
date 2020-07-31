@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:project/components/display.dart';
+import 'package:project/components/led_display.dart';
 
 const String _titleAppBar = 'Qual é o número?';
 String _textoStatus = 'Acertou';
@@ -31,12 +33,16 @@ class _JogoAdivinhaState extends State<JogoAdivinha> {
           ),
         ],
       ),
-      body: Column(
-        children: <Widget>[
-          Center(
-            child: Text('teste'),
-          ),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(88.0),
+        child: Column(
+          children: <Widget>[
+            Center(
+              child: Text(_textoStatus),
+            ),
+            Display(),
+          ],
+        ),
       )
     );
   }

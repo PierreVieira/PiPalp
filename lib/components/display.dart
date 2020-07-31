@@ -4,6 +4,6 @@ import 'package:project/components/led_display.dart';
 class Display extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(child: LedDisplay(0, 0));
+    return LedDisplay(0, 0);
   }
 }

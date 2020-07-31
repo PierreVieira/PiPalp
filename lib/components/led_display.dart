@@ -9,7 +9,7 @@ class LedDisplay extends StatelessWidget{
       clipper: ClipHome(_deslocamentoVertical, _deslocamentoHorizontal),
       child: Container(
         width: MediaQuery.of(context).size.width,
-        height:MediaQuery.of(context).size.height/2.7,
+        height: MediaQuery.of(context).size.height/2.7,
         decoration: BoxDecoration(
           color: Colors.pink[500]
         ),

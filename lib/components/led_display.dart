@@ -24,7 +24,6 @@ class ClipHome extends CustomClipper<Path>{
   @override
   Path getClip(Size size) {
     double _scale = size.height/32;
-
     Path path = Path();
     path.lineTo(_deslocamentoHorizontal + 0*_scale, _deslocamentoVertical + 0.7*_scale); //A
     path.lineTo(_deslocamentoHorizontal + 1*_scale, _deslocamentoVertical + 2*_scale); //B

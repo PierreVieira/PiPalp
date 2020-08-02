@@ -11,7 +11,7 @@ class LedDisplay extends StatelessWidget{
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height/2.7,
         decoration: BoxDecoration(
-          color: Colors.pink[500]
+          color: Colors.pink[500],
         ),
       ),
     );

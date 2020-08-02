@@ -1,19 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:project/components/display.dart';
-import 'package:project/components/number_editor.dart';
+import 'package:project/components/envio_resposta/envio_resposta.dart';
 
-const String _titleAppBar = 'Qual é o número?';
-String _textoStatus = 'Acertou';
+final String _textoStatus = 'Acertou';
+final String _titleAppBar = 'PiPalp';
+final String _textoBotaoNovaPartida = 'Nova Partida';
 
-class JogoAdivinha extends StatefulWidget {
+class JogoAdivinha extends StatelessWidget {
   @override
-  _JogoAdivinhaState createState() => _JogoAdivinhaState();
-}
-
-class _JogoAdivinhaState extends State<JogoAdivinha> {
-  @override
-  final TextEditingController _controladorCampoValor = TextEditingController();
-
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -37,21 +30,17 @@ class _JogoAdivinhaState extends State<JogoAdivinha> {
       ),
       body: Column(
         children: <Widget>[
-          Center(
-            child: Text(_textoStatus),
-          ),
-//            Display(),
+          Text(_textoStatus),
           RaisedButton(
             onPressed: () {},
-            child: Text('Nova Partida'),
+            child: Text(_textoBotaoNovaPartida),
           ),
-          NumberEditor(),
-          RaisedButton(
-            onPressed: () {},
-            child: Text('Enviar'),
-          )
+          EnvioRespostaField(),
         ],
       ),
     );
   }
 }
+
+
+

@@ -15,23 +15,23 @@ class Display extends StatelessWidget {
     if(numero > 99){
       return Row(
         children: <Widget>[
-          TelaUnica(numero: int.parse(this.numero.toString()[0])),
-          TelaUnica(numero: int.parse(this.numero.toString()[1])),
-          TelaUnica(numero: int.parse(this.numero.toString()[2])),
+          TelaUnica(numero: int.parse(this.numero.toString()[0]), dimensao: dimensao),
+          TelaUnica(numero: int.parse(this.numero.toString()[1]), dimensao: dimensao),
+          TelaUnica(numero: int.parse(this.numero.toString()[2]), dimensao: dimensao),
         ],
       );
     }
     else if (numero > 9){
       return Row(
         children: <Widget>[
-          TelaUnica(numero: int.parse(this.numero.toString()[0])),
-          TelaUnica(numero: int.parse(this.numero.toString()[1])),
+          TelaUnica(numero: int.parse(this.numero.toString()[0]), dimensao: dimensao),
+          TelaUnica(numero: int.parse(this.numero.toString()[1]), dimensao: dimensao),
         ],
       );
     }
     return Row(
       children: <Widget>[
-        TelaUnica(numero: int.parse(this.numero.toString()[0])),
+        TelaUnica(numero: this.numero, dimensao: dimensao),
       ],
     );
   }

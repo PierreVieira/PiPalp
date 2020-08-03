@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:project/components/display.dart';
 import 'package:project/components/envio_resposta/envio_resposta.dart';
 
-final String _textoStatus = 'Acertou';
+final String _textoStatus = 'Acertou!';
 final String _titleAppBar = 'PiPalp';
 final String _textoBotaoNovaPartida = 'Nova Partida';
 
@@ -30,17 +31,24 @@ class JogoAdivinha extends StatelessWidget {
       ),
       body: Column(
         children: <Widget>[
-          Text(_textoStatus),
+          Padding(
+            padding: const EdgeInsets.only(top: 64.0, bottom: 8.0),
+            child: Text(_textoStatus),
+          ),
+          Container(
+            color: Colors.white,
+            child: Display(300),
+          ),
           RaisedButton(
             onPressed: () {},
             child: Text(_textoBotaoNovaPartida),
           ),
-          EnvioRespostaField(),
+          Padding(
+            padding: const EdgeInsets.only(top: 160.0),
+            child: EnvioRespostaField(),
+          ),
         ],
       ),
     );
   }
 }
-
-
-

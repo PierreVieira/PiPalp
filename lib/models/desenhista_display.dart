@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ShapePainter extends CustomPainter {
+class DesenhistaDisplay extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     var paint = Paint()

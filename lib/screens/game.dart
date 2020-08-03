@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:project/components/display.dart';
+import 'file:///C:/Users/pierr/IdeaProjects/Pi_Palp/lib/components/display/display.dart';
 import 'package:project/components/envio_resposta/envio_resposta.dart';
+import 'package:project/models/dimensao.dart';
 
 final String _textoStatus = 'Acertou!';
 final String _titleAppBar = 'PiPalp';
 final String _textoBotaoNovaPartida = 'Nova Partida';
 
 class JogoAdivinha extends StatelessWidget {
+  Dimensao _dimensao;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +40,9 @@ class JogoAdivinha extends StatelessWidget {
           ),
           Container(
             color: Colors.white,
-            child: Display(300),
+            child: Display(
+              dimensao: this._dimensao,
+            ),
           ),
           RaisedButton(
             onPressed: () {},

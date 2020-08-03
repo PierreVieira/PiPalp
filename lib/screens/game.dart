@@ -3,7 +3,7 @@ import 'file:///C:/Users/pierr/IdeaProjects/Pi_Palp/lib/components/display/displ
 import 'package:project/components/envio_resposta/envio_resposta.dart';
 import 'package:project/models/dimensao.dart';
 
-String _textoStatus = 'Acertou!';
+String _textoStatus = 'Acertou';
 int _dimensionUpgrade = 1;
 final String _titleAppBar = 'PiPalp';
 final String _textoBotaoNovaPartida = 'Nova Partida';
@@ -58,7 +58,7 @@ class _JogoAdivinhaState extends State<JogoAdivinha> {
           Container(
             color: Colors.white,
             child: Display(
-              numero: 20,
+              numero: 100,
               dimensao: this._dimensao,
             ),
           ),

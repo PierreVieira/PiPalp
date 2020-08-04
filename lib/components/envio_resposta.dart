@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'number_editor.dart';
-
 class EnvioRespostaField extends StatelessWidget {
+  final TextEditingController controlador;
+
+  const EnvioRespostaField({this.controlador});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -13,7 +15,15 @@ class EnvioRespostaField extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Flexible(
-              child: NumberEditor(),
+              child: TextField(
+                controller: controlador,
+                style: TextStyle(fontSize: 16.0),
+                decoration: InputDecoration(
+                  hintText: 'Digite o palpite',
+                ),
+                keyboardType: TextInputType.number,
+                maxLength: 3,
+              ),
             ),
             RaisedButton(
               onPressed: () {},

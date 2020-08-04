@@ -7,6 +7,8 @@ String _textoStatus = 'Acertou';
 int _dimensionUpgrade = 1;
 final String _titleAppBar = 'PiPalp';
 final String _textoBotaoNovaPartida = 'Nova Partida';
+int numero = 0;
+TextEditingController controladorEnvioResposta;
 
 class JogoAdivinha extends StatefulWidget {
   @override
@@ -53,28 +55,22 @@ class _JogoAdivinhaState extends State<JogoAdivinha> {
         ],
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(top: 96.0, bottom: 16.0),
-            child: Text(_textoStatus),
-          ),
+          Text(_textoStatus),
           Container(
             color: Colors.white,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
-              child: Display(
-                numero: 5,
-                dimensao: this._dimensao,
-              ),
+            child: Display(
+              numero: numero,
+              dimensao: this._dimensao,
             ),
           ),
           RaisedButton(
             onPressed: () {},
             child: Text(_textoBotaoNovaPartida),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 208.0),
-            child: EnvioRespostaField(),
+          EnvioRespostaField(
+            controlador: controladorEnvioResposta
           ),
         ],
       ),

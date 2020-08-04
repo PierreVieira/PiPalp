@@ -3,8 +3,8 @@ import 'package:project/models/led.dart';
 
 class DesenhistaDisplay extends CustomPainter {
   List<Led> leds;
-
-  DesenhistaDisplay({this.leds});
+  Color cor;
+  DesenhistaDisplay({this.leds, this.cor});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -14,7 +14,7 @@ class DesenhistaDisplay extends CustomPainter {
       ..strokeCap = StrokeCap.round;
 
     for (Led led in leds) {
-      paint.color = led.aceso ? Colors.pink[500] : Colors.grey[100];
+      paint.color = led.aceso ? (cor == null ? Colors.pink[500] : cor) : Colors.grey[100];
       startingPoint = Offset(led.coordenadaOrigem.x, led.coordenadaOrigem.y);
       endingPoint = led.horizontal
           ? Offset(led.coordenadaOrigem.x + led.tamanho, led.coordenadaOrigem.y)

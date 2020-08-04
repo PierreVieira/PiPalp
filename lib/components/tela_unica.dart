@@ -7,8 +7,9 @@ import '../models/desenhista_display.dart';
 class TelaUnica extends StatelessWidget {
   int numero;
   Dimensao dimensao;
-
-  TelaUnica({this.numero, this.dimensao});
+  Color color;
+  bool umDiferente;
+  TelaUnica({this.numero, this.dimensao, this.color, this.umDiferente});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class TelaUnica extends StatelessWidget {
 //        height: 0.25 * MediaQuery.of(context).size.width,
         color: Colors.white,
         child: CustomPaint(
-          painter: DesenhistaDisplay(leds: escolherLeds()),
+          painter: DesenhistaDisplay(leds: escolherLeds(), cor: color),
         ),
       ),
     );
@@ -66,13 +67,23 @@ class TelaUnica extends StatelessWidget {
 
   List<Led> makeLed1() {
     List<Led> leds = List();
-    leds.add(LedA(aceso: false, dimensao: dimensao));
-    leds.add(LedB(aceso: true, dimensao: dimensao));
-    leds.add(LedC(aceso: true, dimensao: dimensao));
-    leds.add(LedD(aceso: false, dimensao: dimensao));
-    leds.add(LedE(aceso: false, dimensao: dimensao));
-    leds.add(LedF(aceso: false, dimensao: dimensao));
-    leds.add(LedG(aceso: false, dimensao: dimensao));
+    if(this.umDiferente){
+      leds.add(LedA(aceso: false, dimensao: dimensao));
+      leds.add(LedB(aceso: false, dimensao: dimensao));
+      leds.add(LedC(aceso: false, dimensao: dimensao));
+      leds.add(LedD(aceso: false, dimensao: dimensao));
+      leds.add(LedE(aceso: true, dimensao: dimensao));
+      leds.add(LedF(aceso: true, dimensao: dimensao));
+      leds.add(LedG(aceso: false, dimensao: dimensao));
+    }else{
+      leds.add(LedA(aceso: false, dimensao: dimensao));
+      leds.add(LedB(aceso: true, dimensao: dimensao));
+      leds.add(LedC(aceso: true, dimensao: dimensao));
+      leds.add(LedD(aceso: false, dimensao: dimensao));
+      leds.add(LedE(aceso: false, dimensao: dimensao));
+      leds.add(LedF(aceso: false, dimensao: dimensao));
+      leds.add(LedG(aceso: false, dimensao: dimensao));
+    }
     return leds;
   }
 

@@ -1,14 +1,28 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:project/components/campo_texto.dart';
 import 'package:project/components/display.dart';
 import 'package:project/models/dimensao.dart';
 
-String _textoStatus = 'Acertou';
-int _dimensionUpgrade = 1;
+String _textoStatus = '';
+int _numero = 0;
+int _respostaNumerica;
+bool _novaPartida = false;
+bool _enviarHabilitado = true;
+bool start = true;
+Color displayColor;
 final String _titleAppBar = 'PiPalp';
 final String _textoBotaoNovaPartida = 'Nova Partida';
-int numero = 0;
+final String _request =
+    'https://us-central1-ss-devops.cloudfunctions.net/rand?min=1&max=300';
 final TextEditingController controlador = TextEditingController();
+
+BaseOptions options = new BaseOptions(
+  baseUrl: "https://us-central1-ss-devops.cloudfunctions.net",
+  connectTimeout: 5000,
+);
+
+Dio _dio = Dio(options);
 
 class JogoAdivinha extends StatefulWidget {
   @override
@@ -20,6 +34,12 @@ class _JogoAdivinhaState extends State<JogoAdivinha> {
 
   @override
   Widget build(BuildContext context) {
+    _novaPartida = _textoStatus == 'Acertou!' || _textoStatus == 'Erro';
+    _enviarHabilitado = !_novaPartida;
+    if (start) {
+      getNumber();
+      start = false;
+    }
     _dimensao = Dimensao(
       altura: 0.15 * MediaQuery.of(context).size.height,
       largura: 0.25 * MediaQuery.of(context).size.width,
@@ -33,17 +53,7 @@ class _JogoAdivinhaState extends State<JogoAdivinha> {
               Icons.format_size,
               color: Colors.white,
             ),
-            onPressed: () {
-              _dimensionUpgrade += 1;
-              if (_dimensionUpgrade == 6) {
-                _dimensionUpgrade = 1;
-              }
-              setState(() {
-                _textoStatus = _textoStatus == 'Acertou!' ? 'oi' : 'Acertou!';
-                _dimensao.aumentar(_dimensionUpgrade);
-                debugPrint('Print1: $_dimensao');
-              });
-            },
+            onPressed: () {},
           ),
           IconButton(
             icon: Icon(
@@ -61,13 +71,22 @@ class _JogoAdivinhaState extends State<JogoAdivinha> {
           Container(
             color: Colors.white,
             child: Display(
-              numero: numero,
+              numero: _numero,
               dimensao: this._dimensao,
+              cor: displayColor,
             ),
           ),
           RaisedButton(
-            onPressed: () {},
             child: Text(_textoBotaoNovaPartida),
+            onPressed: _novaPartida
+                ? () {
+                    setState(() {
+                      _textoStatus = '';
+                      getNumber();
+                      _numero = 0;
+                    });
+                  }
+                : null,
           ),
           Container(
             child: Padding(
@@ -76,13 +95,24 @@ class _JogoAdivinhaState extends State<JogoAdivinha> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  CampoTexto(controlador: controlador,),
+                  CampoTexto(
+                    controlador: controlador,
+                  ),
                   RaisedButton(
-                    onPressed: (){
-                      setState(() {
-                        numero = int.tryParse(controlador.text);
-                      });
-                    },
+                    onPressed: _enviarHabilitado
+                        ? () {
+                            setState(() {
+                              _numero = int.tryParse(controlador.text);
+                              _textoStatus = _respostaNumerica > _numero
+                                  ? 'É maior'
+                                  : _respostaNumerica < _numero
+                                      ? 'É menor'
+                                      : 'Acertou!';
+                              debugPrint(
+                                  'Resposta = $_respostaNumerica\nPalpite = $_numero');
+                            });
+                          }
+                        : null,
                     child: Text('Enviar'),
                   ),
                 ],
@@ -92,5 +122,16 @@ class _JogoAdivinhaState extends State<JogoAdivinha> {
         ],
       ),
     );
+  }
+
+  void getNumber() async {
+    try {
+      Response response = await _dio.get(_request);
+      _respostaNumerica = response.data["value"];
+      debugPrint('Nova resposta gerada: $_respostaNumerica');
+    } catch (DioError) {
+      _numero = 502;
+      _textoStatus = 'Erro';
+    }
   }
 }

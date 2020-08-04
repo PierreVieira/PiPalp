@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:project/components/campo_texto.dart';
 import 'package:project/components/display.dart';
-import 'package:project/components/envio_resposta.dart';
 import 'package:project/models/dimensao.dart';
 
 String _textoStatus = 'Acertou';
@@ -8,7 +8,7 @@ int _dimensionUpgrade = 1;
 final String _titleAppBar = 'PiPalp';
 final String _textoBotaoNovaPartida = 'Nova Partida';
 int numero = 0;
-TextEditingController controladorEnvioResposta;
+final TextEditingController controlador = TextEditingController();
 
 class JogoAdivinha extends StatefulWidget {
   @override
@@ -69,9 +69,26 @@ class _JogoAdivinhaState extends State<JogoAdivinha> {
             onPressed: () {},
             child: Text(_textoBotaoNovaPartida),
           ),
-          EnvioRespostaField(
-            controlador: controladorEnvioResposta
-          ),
+          Container(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  CampoTexto(controlador: controlador,),
+                  RaisedButton(
+                    onPressed: (){
+                      setState(() {
+                        numero = int.tryParse(controlador.text);
+                      });
+                    },
+                    child: Text('Enviar'),
+                  ),
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );

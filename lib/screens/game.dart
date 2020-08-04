@@ -6,10 +6,12 @@ import 'package:project/models/dimensao.dart';
 
 String _textoStatus = '';
 int _numero = 0;
+double _opacidadeBotaoNovaPartida = 0;
 int _respostaNumerica;
 bool _novaPartida = false;
 bool _enviarHabilitado = true;
 bool start = true;
+Dimensao _dimensao;
 Color displayColor;
 final String _titleAppBar = 'PiPalp';
 final String _textoBotaoNovaPartida = 'Nova Partida';
@@ -30,20 +32,19 @@ class JogoAdivinha extends StatefulWidget {
 }
 
 class _JogoAdivinhaState extends State<JogoAdivinha> {
-  Dimensao _dimensao;
-
   @override
   Widget build(BuildContext context) {
     _novaPartida = _textoStatus == 'Acertou!' || _textoStatus == 'Erro';
     _enviarHabilitado = !_novaPartida;
+    debugPrint('Nível de opacidade: $_opacidadeBotaoNovaPartida');
     if (start) {
       getNumber();
       start = false;
+      _dimensao = Dimensao(
+        altura: 0.15 * MediaQuery.of(context).size.height,
+        largura: 0.25 * MediaQuery.of(context).size.width,
+      );
     }
-    _dimensao = Dimensao(
-      altura: 0.15 * MediaQuery.of(context).size.height,
-      largura: 0.25 * MediaQuery.of(context).size.width,
-    );
     return Scaffold(
       appBar: AppBar(
         title: Text(_titleAppBar),
@@ -53,7 +54,11 @@ class _JogoAdivinhaState extends State<JogoAdivinha> {
               Icons.format_size,
               color: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                _dimensao.aumentar();
+              });
+            },
           ),
           IconButton(
             icon: Icon(
@@ -64,61 +69,73 @@ class _JogoAdivinhaState extends State<JogoAdivinha> {
           ),
         ],
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      body: Stack(
         children: <Widget>[
-          Text(_textoStatus),
-          Container(
-            color: Colors.white,
-            child: Display(
-              numero: _numero,
-              dimensao: this._dimensao,
-              cor: displayColor,
-            ),
-          ),
-          RaisedButton(
-            child: Text(_textoBotaoNovaPartida),
-            onPressed: _novaPartida
-                ? () {
-                    setState(() {
-                      _textoStatus = '';
-                      getNumber();
-                      _numero = 0;
-                    });
-                  }
-                : null,
-          ),
-          Container(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  CampoTexto(
-                    controlador: controlador,
-                  ),
-                  RaisedButton(
-                    onPressed: _enviarHabilitado
-                        ? () {
-                            setState(() {
-                              _numero = int.tryParse(controlador.text);
-                              _textoStatus = _respostaNumerica > _numero
-                                  ? 'É maior'
-                                  : _respostaNumerica < _numero
-                                      ? 'É menor'
-                                      : 'Acertou!';
-                              debugPrint(
-                                  'Resposta = $_respostaNumerica\nPalpite = $_numero');
-                            });
-                          }
-                        : null,
-                    child: Text('Enviar'),
-                  ),
-                ],
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Text(_textoStatus),
+              Container(
+                color: Colors.white,
+                child: Display(
+                  numero: _numero,
+                  dimensao: _dimensao,
+                  cor: displayColor,
+                ),
               ),
-            ),
-          )
+              Opacity(
+                opacity: _opacidadeBotaoNovaPartida,
+                child: RaisedButton(
+                  child: Text(_textoBotaoNovaPartida),
+                  onPressed: _novaPartida
+                      ? () {
+                          setState(() {
+                            _textoStatus = '';
+                            getNumber();
+                            _numero = 0;
+                          });
+                        }
+                      : null,
+                ),
+              ),
+              Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      CampoTexto(
+                        controlador: controlador,
+                      ),
+                      RaisedButton(
+                        onPressed: _enviarHabilitado
+                            ? () {
+                                setState(() {
+                                  _numero = int.tryParse(controlador.text);
+                                  _textoStatus = _respostaNumerica > _numero
+                                      ? 'É maior'
+                                      : _respostaNumerica < _numero
+                                          ? 'É menor'
+                                          : 'Acertou!';
+                                  debugPrint(
+                                      'Resposta = $_respostaNumerica\nPalpite = $_numero');
+                                  _opacidadeBotaoNovaPartida =
+                                      (_textoStatus == 'Acertou!' ||
+                                              _textoStatus == 'Erro')
+                                          ? 1.0
+                                          : 0.0;
+                                });
+                              }
+                            : null,
+                        child: Text('Enviar'),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );

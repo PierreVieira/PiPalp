@@ -16,8 +16,8 @@ class TelaUnica extends StatelessWidget {
 //    debugPrint('Print2: $dimensao');
     return LayoutBuilder(
       builder: (_, constraints) => Container(
-        width: dimensao.largura,
-        height: dimensao.altura,
+        width: dimensao.largura*0.8,
+        height: dimensao.altura*1.3,
 //        width: 0.15 * MediaQuery.of(context).size.height,
 //        height: 0.25 * MediaQuery.of(context).size.width,
         color: Colors.white,

@@ -5,17 +5,9 @@ class Dimensao{
     this._alturaOriginal = this.altura;
   }
 
-  void aumentar(){
-    this.largura *= 1.08;
-    this.altura *= 1.08;
-
-    if(this.largura > 1.4*this._larguraOriginal) {
-      this.largura = this._larguraOriginal;
-    }
-
-    if(this.altura > 1.4*this._alturaOriginal) {
-      this.altura = this._alturaOriginal;
-    }
+  void aumentar(aumento){
+    this.largura = (1 + aumento) * this._larguraOriginal;
+    this.altura = (1 + aumento) * this._alturaOriginal;
   }
 
   @override

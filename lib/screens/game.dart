@@ -6,6 +6,8 @@ import 'package:project/models/dimensao.dart';
 
 String _textoStatus = '';
 int _numero = 0;
+double _ratingSlider = 1.0;
+double _opacidadeSlider = 0;
 double _opacidadeBotaoNovaPartida = 0;
 int _respostaNumerica;
 bool _novaPartida = false;
@@ -36,7 +38,6 @@ class _JogoAdivinhaState extends State<JogoAdivinha> {
   Widget build(BuildContext context) {
     _novaPartida = _textoStatus == 'Acertou!' || _textoStatus == 'Erro';
     _enviarHabilitado = !_novaPartida;
-    debugPrint('Nível de opacidade: $_opacidadeBotaoNovaPartida');
     if (start) {
       getNumber();
       start = false;
@@ -56,7 +57,7 @@ class _JogoAdivinhaState extends State<JogoAdivinha> {
             ),
             onPressed: () {
               setState(() {
-                _dimensao.aumentar();
+                _opacidadeSlider = _opacidadeSlider == 1 ? 0 : 1;
               });
             },
           ),
@@ -71,6 +72,33 @@ class _JogoAdivinhaState extends State<JogoAdivinha> {
       ),
       body: Stack(
         children: <Widget>[
+          Opacity(
+            opacity: _opacidadeSlider,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Material(
+                color: Colors.pink[100],
+                child: Container(
+                  height: 80,
+                  width: double.infinity,
+                  child: Slider(
+                    value: _ratingSlider,
+                    activeColor: Colors.pink[700],
+                    onChanged: _opacidadeSlider == 0
+                        ? null
+                        : (double newValue) {
+                            setState(() {
+                              _ratingSlider = newValue;
+                              _dimensao.aumentar(_ratingSlider / 2);
+                              debugPrint('$newValue');
+                            });
+                          },
+                    divisions: 5,
+                  ),
+                ),
+              ),
+            ),
+          ),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[

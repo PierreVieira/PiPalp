@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'file:///C:/Users/pierr/IdeaProjects/Pi_Palp/lib/components/display/display.dart';
-import 'package:project/components/envio_resposta/envio_resposta.dart';
+import 'package:project/components/display.dart';
+import 'package:project/components/envio_resposta.dart';
 import 'package:project/models/dimensao.dart';
 
 String _textoStatus = 'Acertou';
@@ -33,7 +33,7 @@ class _JogoAdivinhaState extends State<JogoAdivinha> {
             ),
             onPressed: () {
               _dimensionUpgrade += 1;
-              if (_dimensionUpgrade == 6){
+              if (_dimensionUpgrade == 6) {
                 _dimensionUpgrade = 1;
               }
               setState(() {
@@ -54,19 +54,28 @@ class _JogoAdivinhaState extends State<JogoAdivinha> {
       ),
       body: Column(
         children: <Widget>[
-          Text(_textoStatus),
+          Padding(
+            padding: const EdgeInsets.only(top: 96.0, bottom: 16.0),
+            child: Text(_textoStatus),
+          ),
           Container(
             color: Colors.white,
-            child: Display(
-              numero: 100,
-              dimensao: this._dimensao,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: Display(
+                numero: 5,
+                dimensao: this._dimensao,
+              ),
             ),
           ),
           RaisedButton(
             onPressed: () {},
             child: Text(_textoBotaoNovaPartida),
           ),
-          EnvioRespostaField(),
+          Padding(
+            padding: const EdgeInsets.only(top: 208.0),
+            child: EnvioRespostaField(),
+          ),
         ],
       ),
     );

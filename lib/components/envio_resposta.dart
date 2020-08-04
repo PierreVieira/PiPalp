@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project/components/envio_resposta/number_editor.dart';
+
+import 'number_editor.dart';
 
 class EnvioRespostaField extends StatelessWidget {
   @override

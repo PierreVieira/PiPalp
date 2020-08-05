@@ -4,6 +4,11 @@ Um jogo de adivinhação feito em Flutter.
 
 O desafio foi proposto pela empresa **[Studio Sol](https://www.studiosol.com.br/)**.
 
+## Links
+- Para ver um vídeo de funcionamento do app clique [aqui](https://youtu.be/bWH1QHIeRnE).
+- Para mais detalhes acesse o pdf clicando [aqui](https://drive.google.com/file/d/1Mpnaew-1pYFMCP9M7v2R5LGf9An4EF5k/view?usp=sharing).
+- Para acessar o meu currículo virtual clique [aqui](https://www.linkedin.com/in/pierre-vieira/).
+- Para acessar o meu github clique [aqui](https://github.com/PierreVieira).
 
 ## Getting Started
 

@@ -6,9 +6,10 @@ import 'package:project/models/dimensao.dart';
 
 String _textoStatus = '';
 int _numero = 0;
-double _ratingSlider = 1.0;
+double _ratingSlider = 0;
 double _opacidadeSlider = 0;
 double _opacidadeBotaoNovaPartida = 0;
+double _opacidadePaletaDeCores = 0;
 int _respostaNumerica;
 bool _novaPartida = false;
 bool _enviarHabilitado = true;
@@ -72,14 +73,42 @@ class _JogoAdivinhaState extends State<JogoAdivinha> {
       ),
       body: Stack(
         children: <Widget>[
+          Container(
+            height: _dimensao.altura/4,
+            child: ListView(
+              // This next line does the trick.
+              scrollDirection: Axis.horizontal,
+              children: <Widget>[
+                Container(
+                  width: _dimensao.largura,
+                  color: Colors.pink[500],
+                ),
+                Container(
+                  width: _dimensao.largura,
+                  color: Colors.blue,
+                ),
+                Container(
+                  width: _dimensao.largura,
+                  color: Colors.yellow,
+                ),
+                Container(
+                  width: _dimensao.largura,
+                  color: Colors.green,
+                ),
+                Container(
+                  width: _dimensao.largura,
+                  color: Colors.orange,
+                ),
+              ],
+            ),
+          ),
           Opacity(
             opacity: _opacidadeSlider,
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(32.0),
               child: Material(
-                color: Colors.pink[100],
                 child: Container(
-                  height: 80,
+                  height: 40,
                   width: double.infinity,
                   child: Slider(
                     value: _ratingSlider,
@@ -177,6 +206,9 @@ class _JogoAdivinhaState extends State<JogoAdivinha> {
     } catch (DioError) {
       _numero = 502;
       _textoStatus = 'Erro';
+      setState(() {
+        _novaPartida = true;
+      });
     }
   }
 }

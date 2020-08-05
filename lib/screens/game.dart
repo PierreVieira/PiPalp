@@ -81,8 +81,121 @@ class _JogoAdivinhaState extends State<JogoAdivinha> {
       ),
       body: Stack(
         children: <Widget>[
-          PaletaDeCores(),
-          MySlider(),
+          Opacity(
+            opacity: _opacidadePaletaDeCores,
+            child: Container(
+              height: _dimensao.altura / 4,
+              child: ListView(
+                // This next line does the trick.
+                scrollDirection: Axis.horizontal,
+                children: <Widget>[
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        displayColor = Colors.pink[500];
+                      });
+                    },
+                    child: Container(
+                      width: _dimensao.largura,
+                      color: Colors.pink[500],
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        displayColor = Colors.blue[500];
+                      });
+                    },
+                    child: Container(
+                      width: _dimensao.largura,
+                      color: Colors.blue[500],
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        displayColor = Colors.yellow[500];
+                      });
+                    },
+                    child: Container(
+                      width: _dimensao.largura,
+                      color: Colors.yellow[500],
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        displayColor = Colors.orange[500];
+                      });
+                    },
+                    child: Container(
+                      width: _dimensao.largura,
+                      color: Colors.orange[500],
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        displayColor = Colors.green[500];
+                      });
+                    },
+                    child: Container(
+                      width: _dimensao.largura,
+                      color: Colors.green[500],
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        displayColor = Colors.purple[500];
+                      });
+                    },
+                    child: Container(
+                      width: _dimensao.largura,
+                      color: Colors.purple[500],
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        displayColor = Colors.black;
+                      });
+                    },
+                    child: Container(
+                      width: _dimensao.largura,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Opacity(
+            opacity: _opacidadeSlider,
+            child: Padding(
+              padding: const EdgeInsets.all(32.0),
+              child: Material(
+                child: Container(
+                  height: 40,
+                  width: double.infinity,
+                  child: Slider(
+                    value: _ratingSlider,
+                    activeColor: Colors.pink[700],
+                    onChanged: _opacidadeSlider == 0
+                        ? null
+                        : (double newValue) {
+                            setState(() {
+                              _ratingSlider = newValue;
+                              _dimensao.aumentar(_ratingSlider / 2);
+                              debugPrint('$newValue');
+                            });
+                          },
+                    divisions: 5,
+                  ),
+                ),
+              ),
+            ),
+          ),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
@@ -102,6 +215,8 @@ class _JogoAdivinhaState extends State<JogoAdivinha> {
                   onPressed: _novaPartida
                       ? () {
                           setState(() {
+                            _opacidadeSlider = 0;
+                            _opacidadePaletaDeCores = 0;
                             _textoStatus = '';
                             getNumber();
                             _numero = 0;
@@ -124,6 +239,8 @@ class _JogoAdivinhaState extends State<JogoAdivinha> {
                         onPressed: _enviarHabilitado
                             ? () {
                                 setState(() {
+                                  _opacidadeSlider = 0;
+                                  _opacidadePaletaDeCores = 0;
                                   _numero = int.tryParse(controlador.text);
                                   _textoStatus = _respostaNumerica > _numero
                                       ? 'É maior'
@@ -165,93 +282,5 @@ class _JogoAdivinhaState extends State<JogoAdivinha> {
         _novaPartida = true;
       });
     }
-  }
-}
-
-class MySlider extends StatefulWidget {
-  @override
-  _MySliderState createState() => _MySliderState();
-}
-
-class _MySliderState extends State<MySlider> {
-  @override
-  Widget build(BuildContext context) {
-    return Opacity(
-      opacity: _opacidadeSlider,
-      child: Padding(
-        padding: const EdgeInsets.all(32.0),
-        child: Material(
-          child: Container(
-            height: 40,
-            width: double.infinity,
-            child: Slider(
-              value: _ratingSlider,
-              activeColor: Colors.pink[700],
-              onChanged: _opacidadeSlider == 0
-                  ? null
-                  : (double newValue) {
-                      setState(() {
-                        _ratingSlider = newValue;
-                        _dimensao.aumentar(_ratingSlider / 2);
-                        debugPrint('$newValue');
-                      });
-                    },
-              divisions: 5,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class PaletaDeCores extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Opacity(
-      opacity: _opacidadePaletaDeCores,
-      child: Container(
-        height: _dimensao.altura / 4,
-        child: ListView(
-          // This next line does the trick.
-          scrollDirection: Axis.horizontal,
-          children: <Widget>[
-            ElementoPaletaDeCores(
-              color: Colors.pink[500],
-            ),
-            ElementoPaletaDeCores(
-              color: Colors.blue,
-            ),
-            ElementoPaletaDeCores(
-              color: Colors.yellow,
-            ),
-            ElementoPaletaDeCores(
-              color: Colors.green,
-            ),
-            ElementoPaletaDeCores(
-              color: Colors.orange,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class ElementoPaletaDeCores extends StatelessWidget {
-  Color color;
-
-  ElementoPaletaDeCores({this.color});
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      child: InkWell(
-        child: Container(
-          width: _dimensao.largura,
-          color: this.color,
-        ),
-      ),
-    );
   }
 }

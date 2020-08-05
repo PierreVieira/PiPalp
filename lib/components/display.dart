@@ -1,3 +1,7 @@
+/*
+* A classe Display é a responsável por apresentar os números ao usuário de forma dinâmica.*/
+
+
 import 'package:flutter/material.dart';
 import 'package:project/models/dimensao.dart';
 
@@ -12,6 +16,8 @@ class Display extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /*
+    * A classe retorna 1, 2 ou 3 displays de 7 segmentos em linha dependendo do número passado como parâmetro*/
     this.numero = this.numero != null ? this.numero : 0;
     if(numero > 99){
       return Row(

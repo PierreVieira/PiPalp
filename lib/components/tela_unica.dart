@@ -1,3 +1,8 @@
+/*
+* A classe TelaUnica representa uma unica tela do display completo, aqui é onde
+* tomamos a decisão de qual número deve ser exibido na tela.*/
+
+
 import 'package:flutter/material.dart';
 import 'package:project/models/dimensao.dart';
 import 'package:project/models/led.dart';

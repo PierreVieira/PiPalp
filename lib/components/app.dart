@@ -1,3 +1,8 @@
+/*
+* Essa classe é a que define o aplicativo, aqui são feitas as principais configurações
+* de cores do app.*/
+
+
 import 'package:flutter/material.dart';
 import 'package:project/screens/game.dart';
 

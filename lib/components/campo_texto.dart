@@ -1,3 +1,6 @@
+/*
+* Essa é a classe que define o campo numérico de texto do usuário.*/
+
 import 'package:flutter/material.dart';
 
 class CampoTexto extends StatelessWidget {

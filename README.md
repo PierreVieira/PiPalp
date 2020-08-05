@@ -1,6 +1,9 @@
 # Pipalp
 
-A new Flutter project.
+Um jogo de adivinhação feito em Flutter.
+
+O desafio foi proposto pela empresa **[Studio Sol](https://www.studiosol.com.br/)**.
+
 
 ## Getting Started
 

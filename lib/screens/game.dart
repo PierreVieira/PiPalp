@@ -298,13 +298,14 @@ class _JogoAdivinhaState extends State<JogoAdivinha> {
     * esse método é chamado na constrção da tela e toda vez que o botão "Nova Partida"
     * é clicado*/
     try {
-      Response response = await _dio.get(_request);
-      _respostaNumerica = response.data["value"];
-      debugPrint('Nova resposta gerada: $_respostaNumerica');
+        Response response = await _dio.get(_request);
+        _respostaNumerica = response.data["value"];
+        debugPrint('Nova resposta gerada: $_respostaNumerica');
     } catch (DioError) {
       _numero = 502;
       _textoStatus = 'Erro';
       setState(() {
+        _opacidadeBotaoNovaPartida = 1;
         _novaPartida = true;
       });
     }

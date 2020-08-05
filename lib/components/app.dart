@@ -13,6 +13,7 @@ class PiPalp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           primaryColor: Colors.pink[500],
+          backgroundColor: Colors.white,
           buttonTheme: ButtonThemeData(
               buttonColor: Colors.pink[500],
               textTheme: ButtonTextTheme.primary)),
